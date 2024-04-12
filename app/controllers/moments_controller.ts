@@ -18,31 +18,48 @@ export default class MomentsController {
   public async index() {
 
     const momentos = await Momento.all()
-    
+
     return {
       data: momentos
     }
 
   }
   //--------------------------------------------------
-  public async show({ params}: HttpContext){
+  public async show({ params }: HttpContext) {
 
     const momento = await Momento.findOrFail(params.id)
 
     return {
       data: momento
     }
-
   }
   //---------------------------------------------------
-  public async destroy({params}: HttpContext) {
+  public async destroy({ params }: HttpContext) {
     const momento = await Momento.findOrFail(params.id)
 
     await momento.delete()
 
-    return{
+    return {
       message: 'Momento apagado com sucesso!',
       data: momento
     }
   }
+  //---------------------------------------------------
+  public async update({ params, request }: HttpContext) {
+    const momento = await Momento.findOrFail(params.id)
+
+    const body = request.body()
+
+    momento.title = body.title
+    momento.description = body.description
+
+    await momento.save()
+
+    return {
+      message: 'Momento atualizado com sucesso!',
+      data: momento
+    }
+  }
+
+
 }

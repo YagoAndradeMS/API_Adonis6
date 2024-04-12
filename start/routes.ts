@@ -12,3 +12,6 @@ router.get('momentos/:id', [MomentsController, 'show'])
 
 //A rota abaixo vai apagar um momento
 router.delete('momentos/:id', [MomentsController, 'destroy'])
+
+//A rota abaixo atualiza um registro
+router.patch('momentos/:id', [MomentsController, 'update'])
